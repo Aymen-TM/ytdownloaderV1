@@ -18,6 +18,7 @@ function Download() {
       setload(true)
     }else{
       setload(false)
+      
     }
   }
 
