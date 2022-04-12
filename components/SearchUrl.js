@@ -17,10 +17,8 @@ function SearchUrl({show,setload,load}) {
   }
   const onSubmit = (data, e) => console.log(data, e);
   const onError = (errors, e) => console.log(errors, e);
-  const isError = true
 
   
-
   return (
     <form onSubmit={handleSubmit(onSubmit,onError)}>
       <FormControl isInvalid={errors.url}>
