@@ -1,8 +1,6 @@
 import React from 'react'
-import {Box, Button, Flex, FormControl, FormErrorMessage, Input, InputGroup, InputLeftElement } from "@chakra-ui/react"
+import {Button, Flex, FormControl, FormErrorMessage, Input, InputGroup, InputLeftElement } from "@chakra-ui/react"
 import { ArrowForwardIcon,SearchIcon } from '@chakra-ui/icons'
-import { useState } from 'react'
-import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 
 function SearchUrl({show,setload,load}) {

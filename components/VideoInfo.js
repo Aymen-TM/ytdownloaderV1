@@ -1,4 +1,4 @@
-import { Box, Button, IconButton, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
+import {Button, IconButton, Spinner, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react"
 import { useEffect } from "react"
 import { useState } from "react"
 import { FaFilm } from "react-icons/fa"
