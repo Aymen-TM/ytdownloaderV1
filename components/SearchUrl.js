@@ -39,8 +39,6 @@ function SearchUrl({show,setload,load}) {
           <FormErrorMessage  width="fit-content"  maxW="xl" mx="auto" mt={3} >Pleas make sure your input match this pattern https://www.youtube.com/watch?v=.....</FormErrorMessage>
       </FormControl>
     </form>
-        
-  
   )
 }
 

@@ -1,13 +1,12 @@
-// Buildin with nodejs
-const cp = require('child_process');
-const readline = require('readline');
 
-const fs = require('fs');
 const express = require('express')
 const next = require('next')
 const ytdl = require('ytdl-core')
-var bodyParser = require('body-parser');
-const ffmpeg = require('ffmpeg-static');
+const bodyParser = require('body-parser');
+const download = require("./download")
+
+
+
 
 
 
@@ -70,67 +69,7 @@ app.prepare().then(() => {
         let itag = req.query.itag;
         let url = req.query.url;
 
-        // Get audio and video streams
-        const audio = ytdl(url, {
-            quality: 'highestaudio'
-        })
-
-        const video = ytdl(url, {
-            quality: itag
-        })
-
-        video.on('info', (info, format) => {
-            res.set({
-                'content-disposition': `attachment; filename=${itag}.mp4`,
-                'content-length': format.contentLength,
-            })
-          });
-    
-        const ffmpegProcess = cp.spawn(ffmpeg, [
-            '-i', `pipe:3`,
-            '-i', `pipe:4`,
-            '-map', '0:v',
-            '-map', '1:a',
-            '-c:v', 'copy',
-            '-c:a', 'libmp3lame',
-            '-crf', '27',
-            '-preset', 'veryfast',
-            '-movflags', 'frag_keyframe+empty_moov',
-            '-f', 'mp4',
-            '-loglevel', 'error',
-            '-'
-        ], {
-            stdio: [
-                'pipe', 'pipe', 'pipe', 'pipe', 'pipe',
-            ],
-        });
-
-        video.pipe(ffmpegProcess.stdio[3]);
-        audio.pipe(ffmpegProcess.stdio[4]);
-        ffmpegProcess.stdio[1].pipe(res);
-
-        let ffmpegLogs = ''
-
-        ffmpegProcess.stdio[2].on(
-            'data',
-            (chunk) => {
-                ffmpegLogs += chunk.toString()
-            }
-        )
-
-        ffmpegProcess.on(
-            'exit',
-            (exitCode) => {
-                if (exitCode === 1) {
-                    console.error(ffmpegLogs)
-                }
-            }
-        )
-
-
-
-
-
+        download(itag,url,res)
     })
 
 
