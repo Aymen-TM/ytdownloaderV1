@@ -18,19 +18,14 @@ const app = next({
 const handle = app.getRequestHandler()
 
 
-const yt_url = "https://www.youtube.com/watch?v="
 
-
-
+// function to convert video content-length from bytes to (KB,MB,GB)
 const formatBytes = (bytes, decimals = 2) => {
     if (bytes === 0) return '0 Bytes';
-
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
@@ -42,6 +37,8 @@ app.prepare().then(() => {
         extended: false
     }));
 
+    
+    // route to get video information (file_size,video_quality)
     server.get('/api/quality/:id', async (req, res) => {
         video_id = req.params.id
         let video_quality = []
@@ -54,8 +51,6 @@ app.prepare().then(() => {
                     size: formatBytes(format.contentLength)
                 })
             }
-
-
         })
         res.json({
             quality: video_quality
